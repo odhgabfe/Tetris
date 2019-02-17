@@ -81,9 +81,13 @@ public class Board extends JPanel {
                 }, //arg2
                 this);                                          //arg3
         
-        currentShape = shapes[5];
+        currentShape = shapes[6];
     }
 
+    public int getBlockSize(){
+        return blockSize;
+    }
+    
     public void paintComponent(Graphics g) {
         super.paintComponent(g); //call parent JPanel's implementation of the method paintComponent on g
 
