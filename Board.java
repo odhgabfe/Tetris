@@ -11,6 +11,8 @@ public class Board extends JPanel {
     private final int blockSize = 30;
     private final int boardWidth = 10;
     private final int boardHeight = 20;
+    private Shape[] shapes = new Shape[7];
+    private Shape currentShape;
 
     private int[][] board = new int[boardWidth][boardHeight];
 
@@ -20,6 +22,66 @@ public class Board extends JPanel {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        //SHAPES
+        shapes[0] = new Shape(
+                blocks.getSubimage(0, 0, blockSize, blockSize), //arg1
+                new int[][]{
+                    {1, 1, 1, 1} //XXXX I-shaped block
+                }, //arg2
+                this);                                          //arg3
+
+        shapes[1] = new Shape(
+                blocks.getSubimage(blockSize, 0, blockSize, blockSize), //arg1
+                new int[][]{
+                    {1, 1, 0},
+                    {0, 1, 1} //Z-shaped block look at the 1's as lit pixels
+                }, //arg2
+                this);                                          //arg3
+
+        shapes[2] = new Shape(
+                blocks.getSubimage(blockSize*2, 0, blockSize, blockSize), //arg1
+                new int[][]{
+                    {0, 1, 1},
+                    {1, 1, 0} //S-shaped block
+                }, //arg2
+                this);                                          //arg3
+        
+     
+
+        shapes[3] = new Shape(
+                blocks.getSubimage(blockSize*3, 0, blockSize, blockSize), //arg1
+                new int[][]{
+                    {1, 1, 1},
+                    {0, 0, 1} //J-shaped block
+                }, //arg2
+                this);                                          //arg3
+        
+        shapes[4] = new Shape(
+                blocks.getSubimage(blockSize*4, 0, blockSize, blockSize), //arg1
+                new int[][]{
+                    {1, 1, 1},
+                    {1, 0, 0} //L-shaped block
+                }, //arg2
+                this);                                          //arg3
+        
+        shapes[5] = new Shape(
+                blocks.getSubimage(blockSize*5, 0, blockSize, blockSize), //arg1
+                new int[][]{
+                    {1, 1, 1},
+                    {0, 1, 0} //T-shaped block
+                }, //arg2
+                this);                                          //arg3
+        
+        shapes[6] = new Shape(
+                blocks.getSubimage(blockSize*6, 0, blockSize, blockSize), //arg1
+                new int[][]{
+                    {1, 1},
+                    {1, 1} //0-shaped block
+                }, //arg2
+                this);                                          //arg3
+        
+        currentShape = shapes[5];
     }
 
     public void paintComponent(Graphics g) {
@@ -34,5 +96,7 @@ public class Board extends JPanel {
             //vertical lines
             g.drawLine(i * blockSize, 0, i * blockSize, boardHeight * blockSize);
         }
+        
+        currentShape.render(g);
     }
 }
